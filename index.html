@@ -1650,8 +1650,11 @@ async function pushMeta(){
 // ── سحب مصفوفة ──
 async function pullTable(table){
   try{
-    const rows = await supaGet(table,'data,updated_at');
-    return rows.map(r=>r.data);
+    const rows = await supaGet(table,'id,data,updated_at');
+    return rows.map(r=>({
+      ...r.data,
+      id: r.data?.id || r.id, // تأكد من وجود id دائماً
+    }));
   } catch(e){ console.warn('pullTable error', table, e.message); return null; }
 }
 
@@ -1671,14 +1674,15 @@ async function pullAll(){
       supaGet(TABLES.meta,'id,data').catch(()=>[]),
     ]);
     let changed=false;
-    if(pts !==null){patients=pts;         localStorage.setItem('mw_pts',    JSON.stringify(pts)); changed=true;}
-    if(ords!==null){orders=ords;           localStorage.setItem('mw_ord',    JSON.stringify(ords)); changed=true;}
-    if(sl  !==null){slOrders=sl;           localStorage.setItem('mw_sl',     JSON.stringify(sl)); changed=true;}
-    if(ref !==null){refOrders=ref;         localStorage.setItem('mw_ref',    JSON.stringify(ref)); changed=true;}
-    if(rad !==null){radOrders=rad;         localStorage.setItem('mw_rad',    JSON.stringify(rad)); changed=true;}
-    if(wo  !==null){warehouseOrders=wo;    localStorage.setItem('mw_worders',JSON.stringify(wo)); changed=true;}
-    if(pf  !==null){patientFiles=pf;       localStorage.setItem('mw_files',  JSON.stringify(pf)); changed=true;}
-    if(cs  !==null){clinicSessions=cs;     localStorage.setItem('mw_csess',  JSON.stringify(cs)); changed=true;}
+    // لا نستبدل البيانات المحلية ببيانات فارغة من السيرفر
+    if(pts !==null && (pts.length>0||patients.length===0)){patients=pts;         localStorage.setItem('mw_pts',    JSON.stringify(pts)); changed=true;}
+    if(ords!==null && (ords.length>0||orders.length===0)){orders=ords;           localStorage.setItem('mw_ord',    JSON.stringify(ords)); changed=true;}
+    if(sl  !==null && (sl.length>0||slOrders.length===0)){slOrders=sl;           localStorage.setItem('mw_sl',     JSON.stringify(sl)); changed=true;}
+    if(ref !==null && (ref.length>0||refOrders.length===0)){refOrders=ref;       localStorage.setItem('mw_ref',    JSON.stringify(ref)); changed=true;}
+    if(rad !==null && (rad.length>0||radOrders.length===0)){radOrders=rad;       localStorage.setItem('mw_rad',    JSON.stringify(rad)); changed=true;}
+    if(wo  !==null && (wo.length>0||warehouseOrders.length===0)){warehouseOrders=wo; localStorage.setItem('mw_worders',JSON.stringify(wo)); changed=true;}
+    if(pf  !==null && (pf.length>0||patientFiles.length===0)){patientFiles=pf;   localStorage.setItem('mw_files',  JSON.stringify(pf)); changed=true;}
+    if(cs  !==null && (cs.length>0||clinicSessions.length===0)){clinicSessions=cs; localStorage.setItem('mw_csess',JSON.stringify(cs)); changed=true;}
     if(metaRows&&metaRows.length){
       const ec=metaRows.find(m=>m.id==='examCtr'); if(ec){examCtr=ec.data.v; localStorage.setItem('mw_ctr',examCtr);}
       const fc=metaRows.find(m=>m.id==='fileCtr'); if(fc){fileCtr=fc.data.v; localStorage.setItem('mw_filectr',fileCtr);}
