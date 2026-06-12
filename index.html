@@ -1687,7 +1687,19 @@ async function pullAll(){
       const ec=metaRows.find(m=>m.id==='examCtr'); if(ec){examCtr=ec.data.v; localStorage.setItem('mw_ctr',examCtr);}
       const fc=metaRows.find(m=>m.id==='fileCtr'); if(fc){fileCtr=fc.data.v; localStorage.setItem('mw_filectr',fileCtr);}
     }
-    if(changed) renderAll();
+    if(changed){
+      renderAll();
+      // إعادة تفعيل التاب الحالي بعد المزامنة
+      const activeTab = document.querySelector('.station-tab.active');
+      if(activeTab){
+        const tabId = activeTab.id.replace('tab-','');
+        const ve = document.getElementById('view-'+tabId);
+        if(ve && !ve.classList.contains('active')){
+          document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+          ve.classList.add('active');
+        }
+      }
+    }
   } catch(e){ console.warn('pullAll error', e.message); }
 }
 
