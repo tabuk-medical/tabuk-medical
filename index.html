@@ -100,9 +100,9 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 .t-appt.active .tbadge{background:rgba(168,85,247,.12);color:#a855f7;}
 
 /* VIEWS */
-.view{display:none;padding:18px;animation:fi .2s ease;}
+.view{display:none;padding:18px;}
 .view.active{display:block;min-height:200px;}
-@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+to{opacity:1;transform:translateY(0)}}
 
 /* PAGE HEADER */
 .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
@@ -146,8 +146,8 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 
 /* PATIENT CARD */
 .ql{display:flex;flex-direction:column;gap:6px;}
-.pc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;animation:si .2s ease;}
-@keyframes si{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
+.pc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;}
+to{opacity:1;transform:translateX(0)}}
 .pc:hover{border-color:#444d56;}
 .pnum{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;}
 .pi2{flex:1;}
@@ -211,7 +211,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 .ccp .cm{font-size:9px;color:var(--text2);}
 
 /* PHARMACY/LAB ORDER CARD */
-.order-card{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:13px 15px;margin-bottom:8px;animation:si .2s ease;}
+.order-card{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:13px 15px;margin-bottom:8px;}
 .order-card:hover{border-color:#444d56;}
 .order-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
 .order-patient{font-size:13px;font-weight:800;}
@@ -228,7 +228,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 .os-dispensed{background:rgba(57,208,216,.1);color:var(--teal);border:1px solid rgba(57,208,216,.25);}
 
 /* SICK LEAVE / REFERRAL CARD */
-.sl-card{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:13px 15px;margin-bottom:8px;animation:si .2s ease;}
+.sl-card{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:13px 15px;margin-bottom:8px;}
 .sl-card:hover{border-color:#444d56;}
 .sl-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .sl-patient{font-size:13px;font-weight:800;}
@@ -270,9 +270,9 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 /* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:14px;}
 .mo.open{display:flex;}
-.md{background:var(--surface);border:1px solid var(--border);border-radius:13px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;animation:mi .2s ease;}
+.md{background:var(--surface);border:1px solid var(--border);border-radius:13px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;}
 .md.wide{max-width:700px;}
-@keyframes mi{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+to{opacity:1;transform:scale(1)}}
 .mh{padding:14px 17px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .mh h3{font-size:14px;font-weight:800;}
 .mc{background:var(--surface3);border:none;color:var(--text2);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
@@ -309,8 +309,8 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 /* TOAST */
 .tc{position:fixed;top:62px;left:18px;z-index:999;display:flex;flex-direction:column;gap:6px;pointer-events:none;}
 .tst{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:7px;max-width:290px;box-shadow:0 5px 18px rgba(0,0,0,.4);}
-@keyframes ti{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
-@keyframes to{to{opacity:0;transform:translateX(-14px)}}
+to{opacity:1;transform:translateX(0)}}
+}
 .tst.ok{border-color:rgba(63,185,80,.4);}.tst.inf{border-color:rgba(33,136,255,.4);}.tst.warn{border-color:rgba(240,136,62,.4);}
 
 .empty-st{text-align:center;padding:26px 14px;color:var(--text3);}
@@ -4178,7 +4178,7 @@ function renderWarehouse(){
     const stColor={pending:'var(--yellow)',processing:'var(--blue)',partial_sent:'var(--orange)',sent:'var(--teal)',received:'var(--green)'};
     const canProcess = isDrugWarehouse&&type==='drug' || isSupplyWarehouse&&type==='supply' || isAdmin;
     const canReceive = o.reqRole===role||(isAdmin);
-    return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:13px;margin-bottom:8px;animation:si .2s ease;">
+    return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:13px;margin-bottom:8px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px;">
         <div style="font-size:20px;">${o.reqIcon}</div>
         <div style="flex:1;">
@@ -4575,7 +4575,7 @@ function renderAppointments(){
     const statusColor=isPast?'var(--green)':isToday?'var(--blue)':'#a855f7';
     const attended=appts.filter(a=>a.status==='حضر').length;
     const absent=appts.filter(a=>a.status==='غائب').length;
-    return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:9px;animation:si .2s;">
+    return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:9px;">
       <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;">
         <div style="width:44px;height:44px;border-radius:10px;background:rgba(168,85,247,.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">👨‍⚕️</div>
         <div style="flex:1;">
